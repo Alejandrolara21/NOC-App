@@ -30,8 +30,9 @@ export class FileSystemDataSource implements LogDataSource{
     async saveLog(newLog: LogEntity): Promise<void> {
 
         const logAsJson = `${JSON.stringify(newLog)}\n`;
-
+        
         fs.appendFileSync(this.lowLogsPaths, logAsJson);
+        console.log("FileSytem log created !!");
         if( newLog.level === LogSeverityLevel.low) return;
             
 
@@ -40,6 +41,7 @@ export class FileSystemDataSource implements LogDataSource{
         }else{
             fs.appendFileSync(this.highLogsPaths, logAsJson);
         }
+
     }
 
 
