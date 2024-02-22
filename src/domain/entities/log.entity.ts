@@ -17,7 +17,8 @@ export class LogEntity {
     public createdAt: Date;
     public origin: string;
 
-    constructor({message, level, origin, createdAt = new Date()} : LogEntityOptions){
+    constructor(options : LogEntityOptions){
+        const {message, level, origin, createdAt = new Date()} = options;
         this.level = level;
         this.message = message;
         this.createdAt = createdAt;
@@ -25,6 +26,7 @@ export class LogEntity {
     }
 
     static fromJson = (json: string):LogEntity => {
+        json = (json === '') ? '{}': json;
         const { level, message, createdAt, origin } = JSON.parse(json);
         if(!message) throw new Error('Message is required');
 
@@ -38,5 +40,16 @@ export class LogEntity {
 
         return log;
 
+    }
+
+    static fromObject = (object: {[key:string]: any}):LogEntity => {
+        const { message, level, createdAt, origin} = object;
+        const log = new LogEntity({
+            message,
+            level,
+            createdAt,
+            origin
+        });
+        return log;
     }
 }
