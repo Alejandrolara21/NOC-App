@@ -35,18 +35,18 @@ export class ServerApp {
         // )
 
 
-        // CronService.createJob(
-        //     '*/4 * * * * *',
-        //     () => {
-        //         // const url = 'http://localhost:3000/posts';
-        //         const url = 'https://google.com'; 
-        //         new CheckServiceMultiple(
-        //             [fsLogRepository, mongoLogRepository, postgresLogRepository],
-        //             () => console.log(`SUCCESS: url ${url} is ok`),
-        //             (error) => console.log(`ERROR: ${error} in url ${url}`)
-        //         ).execute(url);
-        //     }
-        // );
+        CronService.createJob(
+            '*/4 * * * * *',
+            () => {
+                // const url = 'http://localhost:3000/posts';
+                const url = 'https://google.com'; 
+                new CheckServiceMultiple(
+                    [fsLogRepository, mongoLogRepository, postgresLogRepository],
+                    () => console.log(`SUCCESS: url ${url} is ok`),
+                    (error) => console.log(`ERROR: ${error} in url ${url}`)
+                ).execute(url);
+            }
+        );
 
         // const logs = await logRepository.getLogs(LogSeverityLevel.low);
         // console.log(logs);
